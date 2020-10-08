@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>WebSocket</title>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <h1>Lista de mensajes</h1>
+
+    <ul id="events"></ul>
+
+    <script>
+      const $events = document.getElementById('events');
+      const newItem = (text) => {
+        const item = document.createElement('li');
+        item.innerText = text;
+        return item;
+      };
+
+      var socket = io.connect('http://localhost:3000', {
+        forceNew: true,
+      });
+      socket.on('message', function (data) {
+        $events.appendChild(newItem(data.message));
+      });
+    </script>
+  </body>
+</html>
